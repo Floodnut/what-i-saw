@@ -31,9 +31,10 @@ sourcedir /etc/chrony/sources.d
 ## NTP 인증 키(쌍) 위치
 keyfile /etc/chrony/chrony.keys
 
-## chronyd가 rate를 저장하는 시간
+## chronyd의 rate
+## 주파수 편차의 단위 - PPM(Parts per million)
+## rate : 동기화 기준 클럭 주파수 대비 현재 시스템이 가지는 주파수 편차를 나타낸다. (100만 클럭 당)
 driftfile /var/lib/chrony/chrony.drift
-## 6.893626             0.039657
 
 ## NTS 키, 쿠키 저장
 ntsdumpdir /var/lib/chrony
@@ -101,7 +102,7 @@ pool 2.ubuntu.pool.ntp.org iburst maxsources 2
     - 최상위 계층은 Stratum 0이다. `(원자 시계)`
     - 마찬가지로 하위 계층은 1, 2, 3… 으로 존재한다.
 - 교차 알고리즘을 통해서 타임서버를 선택하고 네트워크 지연시간의 영향을 줄인다.
-    - 
+
 
 **NTP 타임서버 상태 확인**
 
@@ -148,4 +149,4 @@ alphyn.canonical.com       41  23   12h     +0.044      0.036   -691us   840us
 
 [chrony – Introduction](https://chrony.tuxfamily.org/)
 
-[](https://zdnet.co.kr/view/?no=20151023110205)
+[ntp 보안 취약점](https://zdnet.co.kr/view/?no=20151023110205)
