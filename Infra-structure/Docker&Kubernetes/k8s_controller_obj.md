@@ -32,7 +32,7 @@ StatefulSet는 Pod가 동일한 컨테이너 사양을 사용한다는 점에서
 특정 Pod를 클러스터 내의 모든 노드 또는 여러 노드에서 실행하기 위해 사용.
 - DaemonSet은 특정 Pod가 모든 노드 또는 노드의 일부 하위 집합에서 항상 실행되도록 관리. 
 - 새 노드가 추가되면 DaemonSet가 자동으로 해당 노드의 Pod를 필수 사양으로 설정. 
-- Kubernetes 클러스터는 DaemonSet을 통해 Logging 에이전트가 클러스터 내의 모든 노드에서 실행되도록 할 수 있습니다.
+- Kubernetes 클러스터는 DaemonSet을 통해 Logging 에이전트가 클러스터 내의 모든 노드에서 실행시킴
     - fluentd, ...
 
 ### 배포
