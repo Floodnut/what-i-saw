@@ -1,0 +1,19 @@
+[
+  {
+    "customer": "customer_a",
+    "performances": [
+      {
+        "playId": "hamlet",
+        "audience": 20
+      },
+      {
+        "playId": "as-like",
+        "audience": 20
+      },
+      {
+        "playId": "othello",
+        "audience": 20
+      }
+    ]
+  }
+]
