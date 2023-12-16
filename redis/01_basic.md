@@ -485,3 +485,70 @@ ZRANGE score:2 (a (v BYLEX
 3) "ab"
 4) "b"
 ```
+
+## Bitmap
+
+비트맵은 `String` 자료 구조에서 비트 연산을 수행할 수 있도록 확장한 형태이다.
+문자열은 binary-safe하고 512mb의 값을 저장할 수 있는 특성이 있다.
+- 따라서, 비트맵은 `2^32` 비트를 저장할 수 있다.
+
+비트맵의 장점은 저장 공간의 효율화다.
+비트로 다루는 값은 문자열보다 더 큰 공간을 다룰 수 있게 한다.
+
+```bash
+SETBIT bitmap_key 2 1
+(integer) 1
+
+GET bitmap_key 2
+(integer) 1
+
+# 한번에 여러 비트를 SET
+BITFIELD bitmap_key SET a 2 1 SET a 3 1 SET a 4 1
+1) (integer) 1
+2) (integer) 1
+3) (integer) 1 
+
+# 1로 설정된 비트의 개수
+BITCOUNT bitmap_key
+```
+
+## Hyperloglog
+카디널리티(집합의 원소 개수) 추정을 위한 확률형 자료 구조.  
+데이터 내 중복되지 않는 고유 값 집계를 위해 사용할 수 있다.  
+`Set`의 경우 저장된 데이터를 모두 기억한다. 이와 다르게 `Hyperloglog`는 일정한 메모리를 유지할 수 있다.
+하나의 `Hyperloglog` 자료 구조는 최대 12KB의 크기와 0.81%의 추정 오차를 가진다.  
+또한 하나의 자료구조에는 2^64개의 아이템을 저장할 수 있다.
+
+```bash
+# 아이템 저장
+PFADD key a
+(interger) 1
+
+PFADD key b
+(interger) 1
+
+PFADD key c
+(interger) 1
+
+# 카디널리티 추정(아이템 개수)
+PFCOUNT key
+(integer) 3
+```
+
+## Geo
+지리 정보 저장을 위한 경도-위도 쌍 데이터를 관리할 수 있는 자료 구조다.  
+내부적으로는 `Sorted-set`으로 관리된다.
+
+```bash
+GEOADD key longitude latitude item_member1 longitude latitude item_member2
+
+GEOPOS key item_member1 # 조회
+GEODIST key item_member1 item_member2 단위 # 두 좌표 사이 거리
+
+GEOSEARCH # 특정 위치 기준으로 원하는 거리 내 아이템 검색
+```
+
+`Sorted-set`처럼 `NX`, `XX` 옵션을 통해 아이템이 있는 경우/없는 경우에 해당하는 데이터 저장 조건을 사용할 수 있다.
+ 
+`GEOSEARCH` 커맨드의 경우 `BYRADIUS` 옵션을 통해 반경 거리를, `BYBOX`를 통해 직사각형 거리를 조회할 수 있다.
+## Stream
