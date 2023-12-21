@@ -1,0 +1,8 @@
+FROM frolvlad/alpine-python-machinelearning
+
+ENV PYTHONUNBUFFERED 1
+
+WORKDIR /app
+COPY . /app/
+
+ENTRYPOINT ["python", "training_model.py"]
